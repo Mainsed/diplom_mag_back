@@ -1,0 +1,1 @@
+export const MONGODB_CONNECTION = Symbol('MONGODB_CONNECTION');
