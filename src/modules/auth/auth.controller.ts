@@ -17,4 +17,9 @@ export class AuthController {
   async login(@Body() dto: LoginRequestDto, @Res() res: Response) {
     res.send(await this.authService.login(dto, res));
   }
+
+  @Post('logout')
+  async logout(@Res() res: Response) {
+    res.send(await this.authService.logout(res));
+  }
 }

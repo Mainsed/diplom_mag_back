@@ -8,7 +8,7 @@ export interface IStaffSchema extends Document {
   name: string;
   email: string;
   isAdmin: boolean;
-  password: string;
+  password?: string;
   position: string;
   storeId: number;
   isHidden: boolean;
@@ -23,9 +23,9 @@ export const StaffSchema = new mongoose.Schema<IStaffSchema>(
   {
     id: { type: Number, required: true, unique: true },
     name: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     isAdmin: { type: Boolean, required: true },
-    password: { type: String, required: true },
+    password: { type: String, required: false },
     position: { type: String, required: true },
     storeId: { type: Number, required: true },
     isHidden: { type: Boolean, required: true },

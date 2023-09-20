@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Response } from 'express';
 import { Model } from 'mongoose';
 import { LoginRequestDto } from 'src/modules/auth/dto/login.request.dto';
@@ -17,6 +17,7 @@ import { JwtService } from '@nestjs/jwt';
  */
 @Injectable()
 export class AuthService {
+  private logger = new Logger(AuthService.name);
   constructor(
     @Inject(STAFF_MODEL_SCHEMA)
     private readonly staffSchema: Model<IStaffSchema>,
@@ -43,12 +44,23 @@ export class AuthService {
 
         return { isAuthorized: true, name: user.name };
       }
-      throw 'Не знайдено користувача, або не правильний пароль';
+      throw new NotFoundException(
+        'Не знайдено користувача, або не правильний пароль',
+      );
     } catch (e) {
-      return {
-        isAuthorized: false,
-        error: e.toString(),
-      };
+      this.logger.error(e);
+      throw e;
+    }
+  }
+
+  logout(res: Response) {
+    try {
+      res.clearCookie('isAuthorized');
+      res.clearCookie('accessToken');
+      return;
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
     }
   }
 

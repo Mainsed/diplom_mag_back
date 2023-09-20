@@ -16,9 +16,6 @@ import {
 @Module({
   imports: [
     ConfigModule.forFeature(config),
-    // JwtModule.registerAsync({
-    //   global: true,
-    // }),
     JwtModule.registerAsync({
       imports: [ConfigModule.forFeature(config)],
       useFactory: async (configService: ConfigService) => ({
