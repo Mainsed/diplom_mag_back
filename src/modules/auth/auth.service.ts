@@ -64,6 +64,10 @@ export class AuthService {
     }
   }
 
+  async findAdminUserByEmail(email: string): Promise<IStaffSchema> {
+    return this.staffSchema.findOne({ email, deletedBy: null, isAdmin: true });
+  }
+
   private async generateAccessToken(user: IStaffSchema) {
     const token = await this.jwtService.signAsync({
       email: user.email,

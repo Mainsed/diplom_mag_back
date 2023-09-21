@@ -26,6 +26,7 @@ async function bootstrap() {
     new ValidationPipe({
       disableErrorMessages: false,
       dismissDefaultMessages: false,
+      transform: true,
     }),
   );
 

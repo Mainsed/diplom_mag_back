@@ -3,6 +3,8 @@ import {
   Injectable,
   Logger,
   BadRequestException,
+  NotFoundException,
+  BadGatewayException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
 import {
@@ -12,6 +14,8 @@ import {
 import { StaffCreateRequestDto } from 'src/modules/staff/dto/staff-create.request.dto';
 import { GetStaffRequest } from 'src/modules/staff/dto/staff-get.request.dto';
 import { GetStaffResponse } from 'src/modules/staff/dto/staff-get.response.dto';
+import { StaffUpdateRequestDto } from 'src/modules/staff/dto/staff-update.request.dto';
+import { EnumSort } from 'src/shared/enums/enum.sort';
 
 /**
  * Service that provides auth logic
@@ -58,24 +62,109 @@ export class StaffService {
 
   async getStaff(dto: GetStaffRequest): Promise<GetStaffResponse> {
     try {
-      const skip = dto.limit * dto.page;
+      const { limit, page, order, orderBy, email, name, position, ...filter } =
+        dto;
+      const skip = limit * page;
+
+      const aggregateFilter = {} as Record<string, any>;
+
+      if (email) {
+        aggregateFilter.email = { $regex: email, $options: 'i' };
+      }
+
+      if (name) {
+        aggregateFilter.name = { $regex: name, $options: 'i' };
+      }
+
+      if (position) {
+        aggregateFilter.position = { $regex: position, $options: 'i' };
+      }
+
       const staff = await this.staffSchema
-        .find({
-          deletedBy: null,
-          isHidden: false,
-        })
-        .limit(dto.limit)
+        .find(
+          {
+            deletedBy: null,
+            isHidden: false,
+            ...filter,
+            ...aggregateFilter,
+          },
+          null,
+          { sort: { [orderBy || 'id']: order === EnumSort.desc ? -1 : 1 } },
+        )
+        .limit(limit)
         .skip(skip);
 
       const staffCount = await this.staffSchema.count({
         deletedBy: null,
         isHidden: false,
+        ...filter,
+        ...aggregateFilter,
       });
 
       return {
         staff,
         staffCount,
       };
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
+
+  async updateStaff(
+    dto: StaffUpdateRequestDto,
+    userEmail: string,
+  ): Promise<IStaffSchema> {
+    try {
+      const { id, ...updateData } = dto;
+      const existingStaff = await this.staffSchema.findOne({
+        id: dto.id,
+        deletedBy: null,
+      });
+      if (!existingStaff) {
+        throw new NotFoundException(`Не знайдено користувача з ID ${id}}`);
+      }
+
+      const updateResult = await existingStaff.updateOne({
+        ...updateData,
+        updatedAt: new Date().toISOString(),
+        updatedBy: userEmail,
+      });
+
+      if (updateResult.modifiedCount === 0) {
+        throw new BadGatewayException('Помилка під час оновлення');
+      }
+
+      return this.staffSchema.findOne({
+        id: dto.id,
+        deletedBy: null,
+      });
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
+
+  async softDeleteStaff(id: number, userEmail: string): Promise<number> {
+    try {
+      const existingStaff = await this.staffSchema.findOne({
+        id,
+        deletedBy: null,
+      });
+      if (!existingStaff) {
+        throw new NotFoundException(`Не знайдено користувача з ID ${id}}`);
+      }
+
+      const updateResult = await existingStaff.updateOne({
+        updatedAt: new Date().toISOString(),
+        deletedBy: userEmail,
+      });
+
+      if (updateResult.modifiedCount === 0) {
+        throw new BadGatewayException('Помилка під час оновлення');
+      }
+
+      return id;
     } catch (e) {
       this.logger.error(e);
       throw e;

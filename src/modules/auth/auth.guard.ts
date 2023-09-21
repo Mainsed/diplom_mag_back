@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   Logger,
 } from '@nestjs/common';
@@ -9,6 +10,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { DECORATOR_PUBLIC } from 'src/shared/decorators/public.decorator';
 import { inspect } from 'util';
+import { AuthService } from 'src/modules/auth/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -18,6 +20,7 @@ export class AuthGuard implements CanActivate {
     private readonly configService: ConfigService,
     private readonly reflector: Reflector,
     private readonly jwtService: JwtService,
+    private readonly authService: AuthService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -38,6 +41,16 @@ export class AuthGuard implements CanActivate {
       await this.jwtService.verifyAsync(token, {
         secret: this.configService.getOrThrow('JWT_SECRET'),
       });
+
+      const user = await this.authService.findAdminUserByEmail(
+        tokenPayload.email,
+      );
+
+      if (!user) {
+        throw new ForbiddenException(
+          'Користувач більше не має доступу до системи',
+        );
+      }
 
       return true;
     } catch (e) {
