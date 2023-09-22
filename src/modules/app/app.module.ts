@@ -5,6 +5,7 @@ import { AuthModule } from 'src/modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from 'src/modules/app/app.config';
 import { StaffModule } from 'src/modules/staff/staff.module';
+import { ClientModule } from 'src/modules/client/client.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { StaffModule } from 'src/modules/staff/staff.module';
     MongodbModule,
     AuthModule,
     StaffModule,
+    ClientModule,
   ],
   controllers: [AppController],
 })

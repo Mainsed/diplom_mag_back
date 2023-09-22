@@ -7,14 +7,14 @@ import {
   BadGatewayException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
+import { ClientCreateRequestDto } from 'src/modules/client/dto/client-create.request.dto';
+import { GetClientRequest } from 'src/modules/client/dto/client-get.request.dto';
+import { GetClientResponse } from 'src/modules/client/dto/client-get.response.dto';
+import { ClientUpdateRequestDto } from 'src/modules/client/dto/client-update.request.dto';
 import {
-  STAFF_MODEL_SCHEMA,
-  IStaffSchema,
-} from 'src/modules/mongodb/schemas/staff.schema';
-import { StaffCreateRequestDto } from 'src/modules/staff/dto/staff-create.request.dto';
-import { GetStaffRequest } from 'src/modules/staff/dto/staff-get.request.dto';
-import { GetStaffResponse } from 'src/modules/staff/dto/staff-get.response.dto';
-import { StaffUpdateRequestDto } from 'src/modules/staff/dto/staff-update.request.dto';
+  CLIENT_MODEL_SCHEMA,
+  IClientSchema,
+} from 'src/modules/mongodb/schemas/client.schema';
 import { EnumSort } from 'src/shared/enums/sort.enum';
 
 /**
@@ -23,36 +23,35 @@ import { EnumSort } from 'src/shared/enums/sort.enum';
  * @param {JwtService} jwtService - service to interact with jwt tokens
  */
 @Injectable()
-export class StaffService {
-  private logger = new Logger(StaffService.name);
+export class ClientService {
+  private logger = new Logger(ClientService.name);
   constructor(
-    @Inject(STAFF_MODEL_SCHEMA)
-    private readonly staffSchema: Model<IStaffSchema>,
+    @Inject(CLIENT_MODEL_SCHEMA)
+    private readonly clientSchema: Model<IClientSchema>,
   ) {}
 
-  async createStaff(
-    dto: StaffCreateRequestDto,
+  async createClient(
+    dto: ClientCreateRequestDto,
     userEmail: string,
-  ): Promise<IStaffSchema> {
+  ): Promise<IClientSchema> {
     try {
-      const existingEmail = await this.staffSchema.findOne({
+      const existingEmail = await this.clientSchema.findOne({
         email: dto.email,
       });
 
       if (existingEmail) {
-        throw new BadRequestException('Користувач з такою поштою вже існує');
+        throw new BadRequestException('Клієнт з такою поштою вже існує');
       }
 
-      const lastStaff = await this.staffSchema
+      const lastClient = await this.clientSchema
         .find(null, null, { sort: { id: -1 } })
         .limit(1);
 
-      return this.staffSchema.create({
+      return this.clientSchema.create({
         ...dto,
-        id: (lastStaff[0]?.id || 0) + 1,
+        id: (lastClient[0]?.id || 0) + 1,
         createdAt: new Date().toISOString(),
         createdBy: userEmail,
-        isHidden: false,
       });
     } catch (e) {
       this.logger.error(e);
@@ -60,10 +59,18 @@ export class StaffService {
     }
   }
 
-  async getStaff(dto: GetStaffRequest): Promise<GetStaffResponse> {
+  async getClient(dto: GetClientRequest): Promise<GetClientResponse> {
     try {
-      const { limit, page, order, orderBy, email, name, position, ...filter } =
-        dto;
+      const {
+        limit,
+        page,
+        order,
+        orderBy,
+        email,
+        name,
+        phoneNumber,
+        ...filter
+      } = dto;
       const skip = limit * page;
 
       const aggregateFilter = {} as Record<string, any>;
@@ -76,15 +83,14 @@ export class StaffService {
         aggregateFilter.name = { $regex: name, $options: 'i' };
       }
 
-      if (position) {
-        aggregateFilter.position = { $regex: position, $options: 'i' };
+      if (phoneNumber) {
+        aggregateFilter.phoneNumber = { $regex: phoneNumber, $options: 'i' };
       }
 
-      const staff = await this.staffSchema
+      const client = await this.clientSchema
         .find(
           {
             deletedBy: null,
-            isHidden: false,
             ...filter,
             ...aggregateFilter,
           },
@@ -94,16 +100,15 @@ export class StaffService {
         .limit(limit)
         .skip(skip);
 
-      const staffCount = await this.staffSchema.count({
+      const clientCount = await this.clientSchema.count({
         deletedBy: null,
-        isHidden: false,
         ...filter,
         ...aggregateFilter,
       });
 
       return {
-        staff,
-        staffCount,
+        client,
+        clientCount,
       };
     } catch (e) {
       this.logger.error(e);
@@ -111,21 +116,21 @@ export class StaffService {
     }
   }
 
-  async updateStaff(
-    dto: StaffUpdateRequestDto,
+  async updateClient(
+    dto: ClientUpdateRequestDto,
     userEmail: string,
-  ): Promise<IStaffSchema> {
+  ): Promise<IClientSchema> {
     try {
       const { id, ...updateData } = dto;
-      const existingStaff = await this.staffSchema.findOne({
+      const existingClient = await this.clientSchema.findOne({
         id: dto.id,
         deletedBy: null,
       });
-      if (!existingStaff) {
-        throw new NotFoundException(`Не знайдено користувача з ID ${id}}`);
+      if (!existingClient) {
+        throw new NotFoundException(`Не знайдено клієнта з ID ${id}}`);
       }
 
-      const updateResult = await existingStaff.updateOne({
+      const updateResult = await existingClient.updateOne({
         ...updateData,
         updatedAt: new Date().toISOString(),
         updatedBy: userEmail,
@@ -135,7 +140,7 @@ export class StaffService {
         throw new BadGatewayException('Помилка під час оновлення');
       }
 
-      return this.staffSchema.findOne({
+      return this.clientSchema.findOne({
         id: dto.id,
         deletedBy: null,
       });
@@ -145,17 +150,17 @@ export class StaffService {
     }
   }
 
-  async softDeleteStaff(id: number, userEmail: string): Promise<number> {
+  async softDeleteClient(id: number, userEmail: string): Promise<number> {
     try {
-      const existingStaff = await this.staffSchema.findOne({
+      const existingClient = await this.clientSchema.findOne({
         id,
         deletedBy: null,
       });
-      if (!existingStaff) {
-        throw new NotFoundException(`Не знайдено користувача з ID ${id}}`);
+      if (!existingClient) {
+        throw new NotFoundException(`Не знайдено клієнта з ID ${id}}`);
       }
 
-      const updateResult = await existingStaff.updateOne({
+      const updateResult = await existingClient.updateOne({
         updatedAt: new Date().toISOString(),
         deletedBy: userEmail,
       });

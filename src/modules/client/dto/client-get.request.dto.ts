@@ -1,14 +1,9 @@
 import { Transform } from 'class-transformer';
-import {
-  IsBoolean,
-  IsEnum,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import { ClothSizes } from 'src/shared/enums/cloth-sizes.enum';
 import { EnumSort } from 'src/shared/enums/sort.enum';
 
-export class GetStaffRequest {
+export class GetClientRequest {
   @IsNumber()
   @Transform(({ value }) => Number(value) || 10)
   limit: number;
@@ -26,18 +21,9 @@ export class GetStaffRequest {
   orderBy?: string;
 
   @IsOptional()
-  @IsString()
-  email?: string;
-
-  @IsOptional()
   @IsNumber()
   @Transform(({ value }) => Number(value))
   id?: number;
-
-  @IsOptional()
-  @IsBoolean()
-  @Transform(({ value }) => value === 'true')
-  isAdmin?: boolean;
 
   @IsOptional()
   @IsString()
@@ -45,10 +31,13 @@ export class GetStaffRequest {
 
   @IsOptional()
   @IsString()
-  position?: string;
+  email?: string;
 
   @IsOptional()
-  @IsNumber()
-  @Transform(({ value }) => Number(value))
-  storeId?: number;
+  @IsString()
+  phoneNumber?: string;
+
+  @IsOptional()
+  @IsEnum(ClothSizes)
+  size?: ClothSizes;
 }

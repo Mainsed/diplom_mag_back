@@ -37,6 +37,7 @@ export class AuthService {
         const accessToken = await this.generateAccessToken(user);
 
         res.cookie('isAuthorized', true);
+        res.cookie('userName', user.name);
         res.cookie('accessToken', accessToken, {
           httpOnly: true,
           signed: true,
