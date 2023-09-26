@@ -1,14 +1,17 @@
 import { Transform } from 'class-transformer';
 import {
-  IsBoolean,
+  IsArray,
   IsEnum,
   IsNumber,
   IsOptional,
   IsString,
+  ValidateNested,
 } from 'class-validator';
+import { IClothId } from 'src/modules/mongodb/schemas/order.schema';
+import { OrderStatuses } from 'src/shared/enums/order-statuses.enum';
 import { EnumSort } from 'src/shared/enums/sort.enum';
 
-export class GetStoreRequest {
+export class GetOrderRequest {
   @IsNumber()
   @Transform(({ value }) => Number(value) || 10)
   limit: number;
@@ -31,10 +34,12 @@ export class GetStoreRequest {
   id?: number;
 
   @IsOptional()
-  @IsString()
-  address?: string;
+  @IsNumber()
+  @Transform(({ value }) => Number(value))
+  clientId?: number;
 
   @IsOptional()
-  @IsBoolean()
-  isActive?: boolean;
+  @IsString()
+  @IsEnum(OrderStatuses)
+  status?: OrderStatuses;
 }

@@ -26,7 +26,7 @@ import {
 } from 'src/modules/mongodb/schemas/warehouse.schema';
 
 /**
- * Service that provides auth logic
+ * Service that provides cloth management
  * @param {ConfigService} configService - service to interact with env and settings
  * @param {JwtService} jwtService - service to interact with jwt tokens
  */

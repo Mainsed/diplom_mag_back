@@ -18,7 +18,7 @@ import {
 import { EnumSort } from 'src/shared/enums/sort.enum';
 
 /**
- * Service that provides auth logic
+ * Service that provides store management
  * @param {ConfigService} configService - service to interact with env and settings
  * @param {JwtService} jwtService - service to interact with jwt tokens
  */

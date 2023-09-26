@@ -18,7 +18,7 @@ import { StaffUpdateRequestDto } from 'src/modules/staff/dto/staff-update.reques
 import { EnumSort } from 'src/shared/enums/sort.enum';
 
 /**
- * Service that provides auth logic
+ * Service that provides staff management
  * @param {ConfigService} configService - service to interact with env and settings
  * @param {JwtService} jwtService - service to interact with jwt tokens
  */

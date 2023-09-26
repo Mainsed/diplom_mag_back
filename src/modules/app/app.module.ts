@@ -7,6 +7,8 @@ import { config } from 'src/modules/app/app.config';
 import { StaffModule } from 'src/modules/staff/staff.module';
 import { ClientModule } from 'src/modules/client/client.module';
 import { ClothModule } from 'src/modules/cloth/cloth.module';
+import { ReportModule } from 'src/modules/reports/reports.module';
+import { OrderModule } from 'src/modules/order/order.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ClothModule } from 'src/modules/cloth/cloth.module';
     StaffModule,
     ClientModule,
     ClothModule,
+    ReportModule,
+    OrderModule,
   ],
   controllers: [AppController],
 })
