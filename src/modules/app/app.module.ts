@@ -9,6 +9,8 @@ import { ClientModule } from 'src/modules/client/client.module';
 import { ClothModule } from 'src/modules/cloth/cloth.module';
 import { ReportModule } from 'src/modules/reports/reports.module';
 import { OrderModule } from 'src/modules/order/order.module';
+import { DeliveryModule } from 'src/modules/delivery/delivery.module';
+import { StoreModule } from 'src/modules/store/store.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { OrderModule } from 'src/modules/order/order.module';
     ClothModule,
     ReportModule,
     OrderModule,
+    StoreModule,
+    DeliveryModule,
   ],
   controllers: [AppController],
 })

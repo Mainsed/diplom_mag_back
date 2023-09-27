@@ -1,5 +1,6 @@
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
+  ArrayMinSize,
   IsArray,
   IsEnum,
   IsNumber,
@@ -27,7 +28,9 @@ export class OrderCreateRequestDto {
   clientId?: number;
 
   @IsArray()
+  @ArrayMinSize(1)
   @ValidateNested({ each: true })
+  @Type(() => ClothId)
   clothIdList?: ClothId[];
 
   @IsString()

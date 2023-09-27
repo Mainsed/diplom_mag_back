@@ -21,5 +21,6 @@ import {
     },
     StoreService,
   ],
+  exports: [StoreService],
 })
 export class StoreModule {}

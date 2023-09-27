@@ -99,6 +99,10 @@ export class StoreService {
     }
   }
 
+  async getStoreById(id: number): Promise<IStoreSchema> {
+    return this.storeSchema.findOne({ id, deletedBy: null });
+  }
+
   async updateStore(
     dto: StoreUpdateRequestDto,
     userEmail: string,

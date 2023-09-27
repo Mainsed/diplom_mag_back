@@ -1,4 +1,4 @@
-import { IsArray, IsEnum, IsNumber, IsString, Length } from 'class-validator';
+import { ArrayMinSize, IsArray, IsEnum, IsNumber, IsString, Length } from 'class-validator';
 import { cfgRaw } from 'src/modules/cloth/cloth.config';
 import { ClothSizes } from 'src/shared/enums/cloth-sizes.enum';
 
@@ -16,5 +16,6 @@ export class ClothCreateRequestDto {
 
   @IsEnum(ClothSizes, { each: true })
   @IsArray()
+  @ArrayMinSize(1)
   availableSizes: ClothSizes[];
 }
