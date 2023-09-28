@@ -9,6 +9,7 @@ export interface IClothId {
   clothId: number;
   amount: number;
   size: ClothSizes;
+  storeId?: number;
 }
 
 export interface IOrderSchema extends Document {

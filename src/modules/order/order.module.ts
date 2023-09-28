@@ -11,6 +11,10 @@ import {
   CLOTH_MODEL_SCHEMA,
   ClothSchema,
 } from 'src/modules/mongodb/schemas/cloth.schema';
+import {
+  WAREHOUSE_MODEL_SCHEMA,
+  WarehouseSchema,
+} from 'src/modules/mongodb/schemas/warehouse.schema';
 
 @Module({
   controllers: [OrderController],
@@ -23,6 +27,12 @@ import {
     {
       provide: CLOTH_MODEL_SCHEMA,
       useFactory: (conn: Connection) => conn.model('cloth', ClothSchema),
+      inject: [MONGODB_CONNECTION],
+    },
+    {
+      provide: WAREHOUSE_MODEL_SCHEMA,
+      useFactory: (conn: Connection) =>
+        conn.model('warehouse', WarehouseSchema),
       inject: [MONGODB_CONNECTION],
     },
     OrderService,

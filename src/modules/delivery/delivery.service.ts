@@ -4,6 +4,7 @@ import {
   Logger,
   NotFoundException,
   BadGatewayException,
+  BadRequestException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
 import {
@@ -196,6 +197,43 @@ export class DeliveryService {
       if (!existingDelivery) {
         throw new NotFoundException(`Не знайдено поставку з ID ${id}}`);
       }
+
+      await Promise.all(
+        existingDelivery.clothDelivered.map(async (cloth) => {
+          const warehouseClothes = await this.warehouseSchema.find({
+            clothId: cloth.clothId,
+            storeId: existingDelivery.deliveredTo,
+          });
+
+          if (!warehouseClothes) {
+            throw new BadGatewayException(
+              'Не вдається знайти один або декілька товарів з доставки.',
+            );
+          }
+
+          return Promise.all(
+            cloth.sizes.map(async (size) => {
+              const warehouseCloth = warehouseClothes.find(
+                (warehouse) => warehouse.size === size.size,
+              );
+
+              const amount = warehouseCloth.amount - size.count;
+              if (amount < 0) {
+                throw new BadRequestException(
+                  `Не можливо видалити поставку. Один або декілька товарів будуть мати від'ємну кількість.`,
+                );
+              }
+
+              await warehouseCloth.updateOne({
+                id: warehouseCloth.id,
+                amount,
+                updatedAt: new Date().toISOString(),
+                updatedBy: userEmail,
+              });
+            }),
+          );
+        }),
+      );
 
       const updateResult = await existingDelivery.updateOne({
         updatedAt: new Date().toISOString(),

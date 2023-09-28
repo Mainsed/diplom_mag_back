@@ -4,21 +4,31 @@ import {
   Logger,
   NotFoundException,
   BadGatewayException,
+  BadRequestException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { ClothId, OrderCreateRequestDto } from 'src/modules/order/dto/order-create.request.dto';
+import {
+  ClothId,
+  OrderCreateRequestDto,
+} from 'src/modules/order/dto/order-create.request.dto';
 import { GetOrderRequest } from 'src/modules/order/dto/order-get.request.dto';
 import { GetOrderResponse } from 'src/modules/order/dto/order-get.response.dto';
 import { OrderUpdateRequestDto } from 'src/modules/order/dto/order-update.request.dto';
 import {
   ORDER_MODEL_SCHEMA,
   IOrderSchema,
+  IClothId,
 } from 'src/modules/mongodb/schemas/order.schema';
 import { EnumSort } from 'src/shared/enums/sort.enum';
 import {
   CLOTH_MODEL_SCHEMA,
   IClothSchema,
 } from 'src/modules/mongodb/schemas/cloth.schema';
+import {
+  IWarehouseSchema,
+  WAREHOUSE_MODEL_SCHEMA,
+} from 'src/modules/mongodb/schemas/warehouse.schema';
+import { OrderStatuses } from 'src/shared/enums/order-statuses.enum';
 
 /**
  * Service that provides order management
@@ -33,6 +43,8 @@ export class OrderService {
     private readonly orderSchema: Model<IOrderSchema>,
     @Inject(CLOTH_MODEL_SCHEMA)
     private readonly clothSchema: Model<IClothSchema>,
+    @Inject(WAREHOUSE_MODEL_SCHEMA)
+    private readonly warehouseSchema: Model<IWarehouseSchema>,
   ) {}
 
   async createOrder(
@@ -40,6 +52,57 @@ export class OrderService {
     userEmail: string,
   ): Promise<IOrderSchema> {
     try {
+      if (dto.status === OrderStatuses.RETURNED) {
+        throw new BadRequestException(
+          'Не можливо створини замовлення з статусом RETURNED',
+        );
+      }
+
+      let clothIdList: IClothId[];
+
+      if (
+        [
+          OrderStatuses.COMPLETED,
+          OrderStatuses.DELIVERED,
+          OrderStatuses.SENT,
+        ].includes(dto.status)
+      ) {
+        const warehouseObjects = await Promise.all(
+          dto.clothIdList.map(async (clothId) => {
+            const warehouse = await this.warehouseSchema.findOne({
+              clothId: clothId.clothId,
+              amount: { $gte: clothId.amount },
+              size: clothId.size,
+              deletedBy: null,
+            });
+
+            if (!warehouse) {
+              throw new BadRequestException(
+                `Товару з ID ${clothId.clothId} не має в достатній кількості на складах.`,
+              );
+            }
+
+            return { clothId, warehouse };
+          }),
+        );
+
+        clothIdList = await Promise.all(
+          warehouseObjects.map(async (obj) => {
+            await obj.warehouse.updateOne({
+              id: obj.warehouse.id,
+              amount: obj.warehouse.amount - obj.clothId.amount,
+              updatedAt: new Date().toISOString(),
+              updatedBy: userEmail,
+            });
+
+            return {
+              ...obj.clothId,
+              storeId: obj.warehouse.storeId,
+            };
+          }),
+        );
+      }
+
       const lastOrder = await this.orderSchema
         .find(null, null, { sort: { id: -1 } })
         .limit(1);
@@ -48,6 +111,7 @@ export class OrderService {
 
       return this.orderSchema.create({
         ...dto,
+        clothIdList: clothIdList || dto.clothIdList,
         id: (lastOrder[0]?.id || 0) + 1,
         price,
         createdAt: new Date().toISOString(),
@@ -105,14 +169,121 @@ export class OrderService {
         throw new NotFoundException(`Не знайдено магазин з ID ${id}}`);
       }
 
+      let clothIdList: IClothId[];
+
+      const OrderStatusesToTakeClothFromWarehouse = [
+        OrderStatuses.COMPLETED,
+        OrderStatuses.DELIVERED,
+        OrderStatuses.SENT,
+      ];
+
+      if (
+        OrderStatusesToTakeClothFromWarehouse.includes(existingOrder.status) &&
+        (dto.clothIdList ||
+          (dto.status &&
+            dto.status !== OrderStatuses.RETURNED &&
+            !OrderStatusesToTakeClothFromWarehouse.includes(dto.status)))
+      ) {
+        throw new BadRequestException(
+          'Не можливо змінити товари в замовленні або статус замовлення. Замовлення вже було відправлене.',
+        );
+      }
+      if (
+        dto.status === OrderStatuses.RETURNED &&
+        !OrderStatusesToTakeClothFromWarehouse.includes(existingOrder.status)
+      ) {
+        throw new BadRequestException(
+          'Не можливо змінити статус замовлення на RETURNED. Замовлення не було відправлене.',
+        );
+      }
+
+      if (
+        OrderStatusesToTakeClothFromWarehouse.includes(dto.status) &&
+        !OrderStatusesToTakeClothFromWarehouse.includes(existingOrder.status)
+      ) {
+        const warehouseObjects = await Promise.all(
+          (dto.clothIdList || existingOrder.clothIdList).map(
+            async (clothId) => {
+              const warehouse = await this.warehouseSchema.findOne({
+                clothId: clothId.clothId,
+                amount: { $gte: clothId.amount },
+                size: clothId.size,
+                deletedBy: null,
+              });
+
+              if (!warehouse) {
+                throw new BadRequestException(
+                  `Товару з ID ${clothId.clothId} та розміром ${clothId.size} не має в достатній кількості на складах.`,
+                );
+              }
+
+              return { clothId, warehouse };
+            },
+          ),
+        );
+
+        clothIdList = await Promise.all(
+          warehouseObjects.map(async (obj) => {
+            await obj.warehouse.updateOne({
+              id: obj.warehouse.id,
+              amount: obj.warehouse.amount - obj.clothId.amount,
+              updatedAt: new Date().toISOString(),
+              updatedBy: userEmail,
+            });
+
+            return {
+              ...obj.clothId,
+              storeId: obj.warehouse.storeId,
+            };
+          }),
+        );
+      }
+
+      if (dto.status === OrderStatuses.RETURNED) {
+        const warehouseObjects = await Promise.all(
+          existingOrder.clothIdList.map(async (clothId) => {
+            const warehouse = await this.warehouseSchema.findOne({
+              clothId: clothId.clothId,
+              storeId: clothId.storeId,
+              size: clothId.size,
+              deletedBy: null,
+            });
+
+            if (!warehouse) {
+              throw new BadRequestException(
+                `Товару з ID ${clothId.clothId} не існує у магазині звідки його доставляли.`,
+              );
+            }
+
+            return { clothId, warehouse };
+          }),
+        );
+
+        clothIdList = await Promise.all(
+          warehouseObjects.map(async (obj) => {
+            await obj.warehouse.updateOne({
+              id: obj.warehouse.id,
+              amount: obj.warehouse.amount + obj.clothId.amount,
+              updatedAt: new Date().toISOString(),
+              updatedBy: userEmail,
+            });
+
+            return {
+              ...obj.clothId,
+            };
+          }),
+        );
+      }
+
       let price;
-      if (dto.clothIdList){
+      if (dto.clothIdList) {
         price = await this.getPriceByClothIds(dto.clothIdList);
       }
 
       const updateResult = await existingOrder.updateOne({
         ...updateData,
         price,
+        clothIdList: clothIdList || dto.clothIdList,
         updatedAt: new Date().toISOString(),
         updatedBy: userEmail,
       });
