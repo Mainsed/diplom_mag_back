@@ -21,6 +21,7 @@ import {
   WAREHOUSE_MODEL_SCHEMA,
 } from 'src/modules/mongodb/schemas/warehouse.schema';
 import { StoreService } from 'src/modules/store/store.service';
+import { ClothService } from 'src/modules/cloth/cloth.service';
 
 /**
  * Service that provides delivery management
@@ -36,6 +37,7 @@ export class DeliveryService {
     @Inject(WAREHOUSE_MODEL_SCHEMA)
     private readonly warehouseSchema: Model<IWarehouseSchema>,
     private readonly storeService: StoreService,
+    private readonly clothService: ClothService,
   ) {}
 
   async createDelivery(
@@ -57,6 +59,24 @@ export class DeliveryService {
         );
       }
 
+      await Promise.all(
+        dto.clothDelivered.map(async (clothDelivered) => {
+          const clothAvailableSizes =
+            await this.clothService.getClothesAvailableSizes(
+              clothDelivered.clothId,
+            );
+          clothDelivered.sizes.map((size) => {
+            if (!clothAvailableSizes.includes(size.size)) {
+              throw new BadRequestException(
+                `Одяг з ID ${clothDelivered.clothId} не може мати розмір ${size.size}`,
+              );
+            }
+          });
+        }),
+      );
+
+      let totalAmountDelivered = 0;
+
       const warehouseCreateArrays = await Promise.all(
         dto.clothDelivered.map(async (cloth) => {
           const warehouseClothes = await this.warehouseSchema.find({
@@ -68,6 +88,8 @@ export class DeliveryService {
               const warehouseCloth = warehouseClothes.find(
                 (warehouse) => warehouse.size === size.size,
               );
+
+              totalAmountDelivered += size.count;
 
               if (warehouseCloth) {
                 await warehouseCloth.updateOne({
@@ -109,6 +131,7 @@ export class DeliveryService {
 
       return this.deliverySchema.create({
         ...dto,
+        totalAmountDelivered,
         id: (lastDelivery[0]?.id || 0) + 1,
         createdAt: new Date().toISOString(),
         createdBy: userEmail,
@@ -129,7 +152,6 @@ export class DeliveryService {
         .find(
           {
             deletedBy: null,
-            isHidden: false,
             ...filter,
           },
           null,
@@ -140,7 +162,6 @@ export class DeliveryService {
 
       const deliveryCount = await this.deliverySchema.count({
         deletedBy: null,
-        isHidden: false,
         ...filter,
       });
 

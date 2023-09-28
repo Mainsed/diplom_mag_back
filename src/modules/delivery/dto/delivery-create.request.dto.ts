@@ -19,6 +19,7 @@ export class DeliverySizeCount implements IDeliverySizeCount {
   size: ClothSizes;
 
   @IsNumber()
+  @Transform(({ value }) => Number(value))
   count: number;
 }
 
@@ -30,6 +31,7 @@ export class ClothDelivered implements IClothDelivered {
   sizes: DeliverySizeCount[];
 
   @IsNumber()
+  @Transform(({ value }) => Number(value))
   clothId: number;
 }
 
@@ -42,10 +44,6 @@ export class DeliveryCreateRequestDto {
   @IsNumber()
   @Transform(({ value }) => Number(value))
   deliveredFrom?: number;
-
-  @IsNumber()
-  @Transform(({ value }) => Number(value))
-  totalAmountDelivered: number;
 
   @IsEnum(DeliveryType)
   typeOfDelivery: DeliveryType;

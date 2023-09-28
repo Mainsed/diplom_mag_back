@@ -223,4 +223,9 @@ export class ClothService {
       throw e;
     }
   }
+
+  async getClothesAvailableSizes(id: number): Promise<string[]> {
+    const cloth = await this.clothSchema.findOne({ id });
+    return cloth.availableSizes;
+  }
 }

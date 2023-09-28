@@ -31,5 +31,6 @@ import {
     },
     ClothService,
   ],
+  exports: [ClothService],
 })
 export class ClothModule {}
