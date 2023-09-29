@@ -1,4 +1,4 @@
-import { IStoreSchema } from 'src/modules/mongodb/schemas/store.schema';
+import { IStoreSchema } from '@modules/mongodb/schemas/store.schema';
 
 export class GetStoreResponse {
   store: IStoreSchema[];

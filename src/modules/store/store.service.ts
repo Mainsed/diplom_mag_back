@@ -7,15 +7,15 @@ import {
   BadGatewayException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { StoreCreateRequestDto } from 'src/modules/store/dto/store-create.request.dto';
-import { GetStoreRequest } from 'src/modules/store/dto/store-get.request.dto';
-import { GetStoreResponse } from 'src/modules/store/dto/store-get.response.dto';
-import { StoreUpdateRequestDto } from 'src/modules/store/dto/store-update.request.dto';
+import { StoreCreateRequestDto } from '@modules/store/dto/store-create.request.dto';
+import { GetStoreRequest } from '@modules/store/dto/store-get.request.dto';
+import { GetStoreResponse } from '@modules/store/dto/store-get.response.dto';
+import { StoreUpdateRequestDto } from '@modules/store/dto/store-update.request.dto';
 import {
   STORE_MODEL_SCHEMA,
   IStoreSchema,
-} from 'src/modules/mongodb/schemas/store.schema';
-import { EnumSort } from 'src/shared/enums/sort.enum';
+} from '@modules/mongodb/schemas/store.schema';
+import { EnumSort } from '@shared/enums/sort.enum';
 
 /**
  * Service that provides store management

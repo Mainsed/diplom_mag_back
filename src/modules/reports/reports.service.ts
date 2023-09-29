@@ -3,11 +3,11 @@ import { Model } from 'mongoose';
 import {
   IOrderSchema,
   ORDER_MODEL_SCHEMA,
-} from 'src/modules/mongodb/schemas/order.schema';
+} from '@modules/mongodb/schemas/order.schema';
 import {
   STAFF_MODEL_SCHEMA,
   IStaffSchema,
-} from 'src/modules/mongodb/schemas/staff.schema';
+} from '@modules/mongodb/schemas/staff.schema';
 import {
   ClothBySales,
   GetReportResponse,
@@ -17,9 +17,9 @@ import {
   StaffChanges,
   StaffChangesByMonth,
   StoreBySales,
-} from 'src/modules/reports/dto/reports-get.response.dto';
-import { ClothSizes } from 'src/shared/enums/cloth-sizes.enum';
-import { OrderStatuses } from 'src/shared/enums/order-statuses.enum';
+} from '@modules/reports/dto/reports-get.response.dto';
+import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
+import { OrderStatuses } from '@shared/enums/order-statuses.enum';
 
 /**
  * Service that provides report management

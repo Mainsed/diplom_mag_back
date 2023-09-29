@@ -9,7 +9,7 @@ import {
   Matches,
   ValidateIf,
 } from 'class-validator';
-import { cfgRaw } from 'src/modules/staff/staff.config';
+import { cfgRaw } from '@modules/staff/staff.config';
 
 export class StaffUpdateRequestDto {
   @IsNumber()

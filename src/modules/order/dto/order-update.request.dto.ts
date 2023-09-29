@@ -8,8 +8,8 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ClothId } from 'src/modules/order/dto/order-create.request.dto';
-import { OrderStatuses } from 'src/shared/enums/order-statuses.enum';
+import { ClothId } from '@modules/order/dto/order-create.request.dto';
+import { OrderStatuses } from '@shared/enums/order-statuses.enum';
 
 export class OrderUpdateRequestDto {
   @IsNumber()

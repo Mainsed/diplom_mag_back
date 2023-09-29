@@ -7,12 +7,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { DeliveryService } from 'src/modules/delivery/delivery.service';
-import { DeliveryCreateRequestDto } from 'src/modules/delivery/dto/delivery-create.request.dto';
-import { UserEmail } from 'src/shared/decorators/user-email.decorator';
-import { GetDeliveryRequest } from 'src/modules/delivery/dto/delivery-get.request.dto';
-import { IDeliverySchema } from 'src/modules/mongodb/schemas/delivery.schema';
-import { DeliveryUpdateRequestDto } from 'src/modules/delivery/dto/delivery-update.request.dto';
+import { DeliveryService } from '@modules/delivery/delivery.service';
+import { DeliveryCreateRequestDto } from '@modules/delivery/dto/delivery-create.request.dto';
+import { UserEmail } from '@shared/decorators/user-email.decorator';
+import { GetDeliveryRequest } from '@modules/delivery/dto/delivery-get.request.dto';
+import { IDeliverySchema } from '@modules/mongodb/schemas/delivery.schema';
+import { DeliveryUpdateRequestDto } from '@modules/delivery/dto/delivery-update.request.dto';
 
 /**
  * Controler to execute deliveryorization

@@ -8,9 +8,9 @@ import {
 import { Reflector } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { DECORATOR_PUBLIC } from 'src/shared/decorators/public.decorator';
+import { DECORATOR_PUBLIC } from '@shared/decorators/public.decorator';
 import { inspect } from 'util';
-import { AuthService } from 'src/modules/auth/auth.service';
+import { AuthService } from '@modules/auth/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { ReportService } from 'src/modules/reports/reports.service';
+import { ReportService } from '@modules/reports/reports.service';
 
 /**
  * Controler to execute reportorization

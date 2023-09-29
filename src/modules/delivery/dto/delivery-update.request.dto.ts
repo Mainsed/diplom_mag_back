@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
 import { IsNumber, ValidateIf } from 'class-validator';
-import { DeliveryType } from 'src/shared/enums/delivery-type.enum';
+import { DeliveryType } from '@shared/enums/delivery-type.enum';
 
 export class DeliveryUpdateRequestDto {
   @IsNumber()

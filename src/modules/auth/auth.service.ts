@@ -1,13 +1,13 @@
 import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Response } from 'express';
 import { Model } from 'mongoose';
-import { LoginRequestDto } from 'src/modules/auth/dto/login.request.dto';
+import { LoginRequestDto } from '@modules/auth/dto/login.request.dto';
 import {
   STAFF_MODEL_SCHEMA,
   IStaffSchema,
-} from 'src/modules/mongodb/schemas/staff.schema';
+} from '@modules/mongodb/schemas/staff.schema';
 import * as md5 from 'md5';
-import { LoginResponsetDto } from 'src/modules/auth/dto/login.response.dto';
+import { LoginResponsetDto } from '@modules/auth/dto/login.response.dto';
 import { JwtService } from '@nestjs/jwt';
 
 /**

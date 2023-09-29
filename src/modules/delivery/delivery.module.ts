@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { Connection } from 'mongoose';
-import { ClothModule } from 'src/modules/cloth/cloth.module';
-import { DeliveryController } from 'src/modules/delivery/delivery.controller';
-import { DeliveryService } from 'src/modules/delivery/delivery.service';
-import { MONGODB_CONNECTION } from 'src/modules/mongodb/mongodb.constants';
+import { ClothModule } from '@modules/cloth/cloth.module';
+import { DeliveryController } from '@modules/delivery/delivery.controller';
+import { DeliveryService } from '@modules/delivery/delivery.service';
+import { MONGODB_CONNECTION } from '@modules/mongodb/mongodb.constants';
 import {
   DELIVERY_MODEL_SCHEMA,
   DeliverySchema,
-} from 'src/modules/mongodb/schemas/delivery.schema';
+} from '@modules/mongodb/schemas/delivery.schema';
 import {
   WAREHOUSE_MODEL_SCHEMA,
   WarehouseSchema,
-} from 'src/modules/mongodb/schemas/warehouse.schema';
-import { StoreModule } from 'src/modules/store/store.module';
+} from '@modules/mongodb/schemas/warehouse.schema';
+import { StoreModule } from '@modules/store/store.module';
 
 @Module({
   imports: [StoreModule, ClothModule],

@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Connection } from 'mongoose';
-import { config } from 'src/modules/cloth/cloth.config';
-import { ClothController } from 'src/modules/cloth/cloth.controller';
-import { ClothService } from 'src/modules/cloth/cloth.service';
-import { MONGODB_CONNECTION } from 'src/modules/mongodb/mongodb.constants';
+import { config } from '@modules/cloth/cloth.config';
+import { ClothController } from '@modules/cloth/cloth.controller';
+import { ClothService } from '@modules/cloth/cloth.service';
+import { MONGODB_CONNECTION } from '@modules/mongodb/mongodb.constants';
 import {
   CLOTH_MODEL_SCHEMA,
   ClothSchema,
-} from 'src/modules/mongodb/schemas/cloth.schema';
+} from '@modules/mongodb/schemas/cloth.schema';
 import {
   WAREHOUSE_MODEL_SCHEMA,
   WarehouseSchema,
-} from 'src/modules/mongodb/schemas/warehouse.schema';
+} from '@modules/mongodb/schemas/warehouse.schema';
 
 @Module({
   imports: [ConfigModule.forFeature(config)],

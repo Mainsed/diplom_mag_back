@@ -1,21 +1,56 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+  "module": "NodeNext",
+  "declaration": true,
+  "removeComments": true,
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
+  "allowSyntheticDefaultImports": true,
+  "target": "ESNext",
+  "sourceMap": true,
+  "outDir": "./dist",
+  "baseUrl": "./",
+  "incremental": true,
+  "skipLibCheck": true,
+  "strictNullChecks": false,
+  "noImplicitAny": false,
+  "strictBindCallApply": false,
+  "forceConsistentCasingInFileNames": false,
+  "noFallthroughCasesInSwitch": false,
+  "paths": {
+    "@modules/*": ["src/modules/*"],
+    "@shared/*": ["src/shared/*"],
   }
+  },
+  "typeRoots": [
+  "./node_modules/@types/"
+  ],
+  "include": ["src","typings","test"],
+  "exclude": ["node_modules"]
 }
+
+// {
+//   "compilerOptions": {
+//     "module": "NodeNext",
+//     "declaration": true,
+//     "removeComments": true,
+//     "emitDecoratorMetadata": true,
+//     "experimentalDecorators": true,
+//     "allowSyntheticDefaultImports": true,
+//     "target": "ESNext",
+//     "sourceMap": true,
+//     "outDir": "./dist",
+//     "baseUrl": "./",
+//     "incremental": true,
+//     "skipLibCheck": true,
+//     "strictNullChecks": false,
+//     "noImplicitAny": false,
+//     "strictBindCallApply": false,
+//     "forceConsistentCasingInFileNames": false,
+//     "noFallthroughCasesInSwitch": false,
+//     "paths": {
+//       "@modules/*": ["@modules/*"],
+//       "@shared/*": ["@shared/*"],
+//     }
+//   }
+// }

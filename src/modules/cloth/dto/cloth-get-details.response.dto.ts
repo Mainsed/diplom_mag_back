@@ -1,4 +1,4 @@
-import { ClothSizes } from 'src/shared/enums/cloth-sizes.enum';
+import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
 
 class IClothSizeCount {
   size: ClothSizes;

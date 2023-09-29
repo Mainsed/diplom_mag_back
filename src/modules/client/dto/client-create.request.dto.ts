@@ -1,6 +1,6 @@
 import { IsEnum, IsString, Length } from 'class-validator';
-import { cfgRaw } from 'src/modules/client/client.config';
-import { ClothSizes } from 'src/shared/enums/cloth-sizes.enum';
+import { cfgRaw } from '@modules/client/client.config';
+import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
 
 export class ClientCreateRequestDto {
   @IsString()

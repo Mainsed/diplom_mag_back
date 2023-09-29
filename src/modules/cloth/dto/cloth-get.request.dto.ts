@@ -6,8 +6,8 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ClothSizes } from 'src/shared/enums/cloth-sizes.enum';
-import { EnumSort } from 'src/shared/enums/sort.enum';
+import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
+import { EnumSort } from '@shared/enums/sort.enum';
 
 export class GetClothRequest {
   @IsNumber()

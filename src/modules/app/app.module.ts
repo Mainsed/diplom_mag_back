@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { MongodbModule } from 'src/modules/mongodb/mongodb.module';
-import { AuthModule } from 'src/modules/auth/auth.module';
+import { MongodbModule } from '@modules/mongodb/mongodb.module';
+import { AuthModule } from '@modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { config } from 'src/modules/app/app.config';
-import { StaffModule } from 'src/modules/staff/staff.module';
-import { ClientModule } from 'src/modules/client/client.module';
-import { ClothModule } from 'src/modules/cloth/cloth.module';
-import { ReportModule } from 'src/modules/reports/reports.module';
-import { OrderModule } from 'src/modules/order/order.module';
-import { DeliveryModule } from 'src/modules/delivery/delivery.module';
-import { StoreModule } from 'src/modules/store/store.module';
+import { config } from '@modules/app/app.config';
+import { StaffModule } from '@modules/staff/staff.module';
+import { ClientModule } from '@modules/client/client.module';
+import { ClothModule } from '@modules/cloth/cloth.module';
+import { ReportModule } from '@modules/reports/reports.module';
+import { OrderModule } from '@modules/order/order.module';
+import { DeliveryModule } from '@modules/delivery/delivery.module';
+import { StoreModule } from '@modules/store/store.module';
 
 @Module({
   imports: [

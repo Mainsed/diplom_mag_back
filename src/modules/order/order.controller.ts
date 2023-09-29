@@ -7,12 +7,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { OrderService } from 'src/modules/order/order.service';
-import { OrderCreateRequestDto } from 'src/modules/order/dto/order-create.request.dto';
-import { UserEmail } from 'src/shared/decorators/user-email.decorator';
-import { GetOrderRequest } from 'src/modules/order/dto/order-get.request.dto';
-import { IOrderSchema } from 'src/modules/mongodb/schemas/order.schema';
-import { OrderUpdateRequestDto } from 'src/modules/order/dto/order-update.request.dto';
+import { OrderService } from '@modules/order/order.service';
+import { OrderCreateRequestDto } from '@modules/order/dto/order-create.request.dto';
+import { UserEmail } from '@shared/decorators/user-email.decorator';
+import { GetOrderRequest } from '@modules/order/dto/order-get.request.dto';
+import { IOrderSchema } from '@modules/mongodb/schemas/order.schema';
+import { OrderUpdateRequestDto } from '@modules/order/dto/order-update.request.dto';
 
 /**
  * Controler to execute orderorization

@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
 import { Connection } from 'mongoose';
-import { OrderController } from 'src/modules/order/order.controller';
-import { OrderService } from 'src/modules/order/order.service';
-import { MONGODB_CONNECTION } from 'src/modules/mongodb/mongodb.constants';
+import { OrderController } from '@modules/order/order.controller';
+import { OrderService } from '@modules/order/order.service';
+import { MONGODB_CONNECTION } from '@modules/mongodb/mongodb.constants';
 import {
   ORDER_MODEL_SCHEMA,
   OrderSchema,
-} from 'src/modules/mongodb/schemas/order.schema';
+} from '@modules/mongodb/schemas/order.schema';
 import {
   CLOTH_MODEL_SCHEMA,
   ClothSchema,
-} from 'src/modules/mongodb/schemas/cloth.schema';
+} from '@modules/mongodb/schemas/cloth.schema';
 import {
   WAREHOUSE_MODEL_SCHEMA,
   WarehouseSchema,
-} from 'src/modules/mongodb/schemas/warehouse.schema';
+} from '@modules/mongodb/schemas/warehouse.schema';
 
 @Module({
   controllers: [OrderController],

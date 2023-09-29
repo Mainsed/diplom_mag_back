@@ -1,8 +1,8 @@
 import { Global, Logger, Module, OnModuleDestroy } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { config } from 'src/modules/mongodb/mongodb.config';
-import { MONGODB_CONNECTION } from 'src/modules/mongodb/mongodb.constants';
+import { config } from '@modules/mongodb/mongodb.config';
+import { MONGODB_CONNECTION } from '@modules/mongodb/mongodb.constants';
 
 const providers = [
   {
