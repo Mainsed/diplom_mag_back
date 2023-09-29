@@ -36,14 +36,16 @@ export class AuthService {
       if (user) {
         const accessToken = await this.generateAccessToken(user);
 
-        res.cookie('isAuthorized', true);
-        res.cookie('userName', user.name);
+        res.cookie('isAuthorized', true, { sameSite: 'none', secure: true });
+        res.cookie('userName', user.name, { sameSite: 'none', secure: true });
         res.cookie('accessToken', accessToken, {
           httpOnly: true,
           signed: true,
+          sameSite: 'none',
+          secure: true,
         });
 
-        return { isAuthorized: true, name: user.name };
+        return { isAuthorized: true, name: user.name, accessToken };
       }
       throw new NotFoundException(
         'Не знайдено користувача, або не правильний пароль',
