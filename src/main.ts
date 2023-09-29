@@ -1,10 +1,10 @@
-import { AppModule } from '@modules/app/app.module';
+import { AppModule } from './modules/app/app.module';
 import cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { HttpExceptionsFilter } from '@shared/filters/http-exceptions.filter';
-import { RequestLoggerInterceptor } from '@shared/interceptors/request-logger.interceptor';
+import { HttpExceptionsFilter } from './shared/filters/http-exceptions.filter';
+import { RequestLoggerInterceptor } from './shared/interceptors/request-logger.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
