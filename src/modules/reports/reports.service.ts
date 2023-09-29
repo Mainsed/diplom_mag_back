@@ -211,7 +211,6 @@ export class ReportService {
         $gt: currentHalfYearDate,
       },
       isHidden: false,
-      deletedBy: null,
     });
 
     const totalStaffNumber = await this.staffSchema.count({

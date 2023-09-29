@@ -1,13 +1,5 @@
 import { Transform } from 'class-transformer';
-import {
-  IsArray,
-  IsEnum,
-  IsNumber,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-import { IClothId } from 'src/modules/mongodb/schemas/order.schema';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { OrderStatuses } from 'src/shared/enums/order-statuses.enum';
 import { EnumSort } from 'src/shared/enums/sort.enum';
 

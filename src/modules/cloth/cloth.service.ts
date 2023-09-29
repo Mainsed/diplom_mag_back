@@ -225,7 +225,10 @@ export class ClothService {
   }
 
   async getClothesAvailableSizes(id: number): Promise<string[]> {
-    const cloth = await this.clothSchema.findOne({ id });
+    const cloth = await this.clothSchema.findOne({ id, deletedBy: null });
+    if (!cloth) {
+      throw new NotFoundException(`Не знайдено одяг з ID ${id}`);
+    }
     return cloth.availableSizes;
   }
 }
