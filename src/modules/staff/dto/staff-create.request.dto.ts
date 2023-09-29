@@ -7,7 +7,7 @@ import {
   Matches,
   ValidateIf,
 } from 'class-validator';
-import { cfgRaw } from '@modules/staff/staff.config';
+import { cfgRaw } from '../../staff/staff.config';
 
 export class StaffCreateRequestDto {
   @IsString()

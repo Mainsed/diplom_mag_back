@@ -3,15 +3,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { Connection } from 'mongoose';
-import { config } from '@modules/auth/auth.config';
-import { AuthController } from '@modules/auth/auth.controller';
-import { AuthGuard } from '@modules/auth/auth.guard';
-import { AuthService } from '@modules/auth/auth.service';
-import { MONGODB_CONNECTION } from '@modules/mongodb/mongodb.constants';
+import { config } from '../auth/auth.config';
+import { AuthController } from '../auth/auth.controller';
+import { AuthGuard } from '../auth/auth.guard';
+import { AuthService } from '../auth/auth.service';
+import { MONGODB_CONNECTION } from '../mongodb/mongodb.constants';
 import {
   STAFF_MODEL_SCHEMA,
   StaffSchema,
-} from '@modules/mongodb/schemas/staff.schema';
+} from '../mongodb/schemas/staff.schema';
 
 @Module({
   imports: [

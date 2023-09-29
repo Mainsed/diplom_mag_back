@@ -7,23 +7,23 @@ import {
   BadGatewayException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { ClothCreateRequestDto } from '@modules/cloth/dto/cloth-create.request.dto';
-import { GetClothRequest } from '@modules/cloth/dto/cloth-get.request.dto';
-import { GetClothResponse } from '@modules/cloth/dto/cloth-get.response.dto';
-import { ClothUpdateRequestDto } from '@modules/cloth/dto/cloth-update.request.dto';
+import { ClothCreateRequestDto } from '../cloth/dto/cloth-create.request.dto';
+import { GetClothRequest } from '../cloth/dto/cloth-get.request.dto';
+import { GetClothResponse } from '../cloth/dto/cloth-get.response.dto';
+import { ClothUpdateRequestDto } from '../cloth/dto/cloth-update.request.dto';
 import {
   IClothSizesInShop,
   IClothSizesInShops,
-} from '@modules/cloth/dto/cloth-get-details.response.dto';
+} from '../cloth/dto/cloth-get-details.response.dto';
 import {
   CLOTH_MODEL_SCHEMA,
   IClothSchema,
-} from '@modules/mongodb/schemas/cloth.schema';
-import { EnumSort } from '@shared/enums/sort.enum';
+} from '../mongodb/schemas/cloth.schema';
+import { EnumSort } from '../../shared/enums/sort.enum';
 import {
   IWarehouseSchema,
   WAREHOUSE_MODEL_SCHEMA,
-} from '@modules/mongodb/schemas/warehouse.schema';
+} from '../mongodb/schemas/warehouse.schema';
 
 /**
  * Service that provides cloth management

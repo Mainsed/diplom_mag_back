@@ -7,9 +7,9 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { IClothId } from '@modules/mongodb/schemas/order.schema';
-import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
-import { OrderStatuses } from '@shared/enums/order-statuses.enum';
+import { IClothId } from '../../mongodb/schemas/order.schema';
+import { ClothSizes } from '../../../shared/enums/cloth-sizes.enum';
+import { OrderStatuses } from '../../../shared/enums/order-statuses.enum';
 
 export class ClothId implements IClothId {
   @IsNumber()

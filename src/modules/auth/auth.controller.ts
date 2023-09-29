@@ -1,8 +1,8 @@
 import { Controller, Body, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { AuthService } from '@modules/auth/auth.service';
-import { LoginRequestDto } from '@modules/auth/dto/login.request.dto';
-import { Public } from '@shared/decorators/public.decorator';
+import { AuthService } from '../auth/auth.service';
+import { LoginRequestDto } from '../auth/dto/login.request.dto';
+import { Public } from '../../shared/decorators/public.decorator';
 
 /**
  * Controler to execute authorization

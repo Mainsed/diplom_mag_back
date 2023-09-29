@@ -1,4 +1,4 @@
-import { IDeliverySchema } from '@modules/mongodb/schemas/delivery.schema';
+import { IDeliverySchema } from '../../mongodb/schemas/delivery.schema';
 
 export class GetDeliveryResponse {
   delivery: IDeliverySchema[];

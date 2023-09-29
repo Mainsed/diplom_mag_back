@@ -6,8 +6,8 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { cfgRaw } from '@modules/cloth/cloth.config';
-import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
+import { cfgRaw } from '../../cloth/cloth.config';
+import { ClothSizes } from '../../../shared/enums/cloth-sizes.enum';
 
 export class ClothCreateRequestDto {
   @IsString()

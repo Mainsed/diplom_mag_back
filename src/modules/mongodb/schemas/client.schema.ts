@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
-import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
+import { ClothSizes } from '../../../shared/enums/cloth-sizes.enum';
 
 export const CLIENT_MODEL_SCHEMA = Symbol('CLIENT_MODEL_SCHEMA');
 

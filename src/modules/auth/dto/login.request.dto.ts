@@ -1,5 +1,5 @@
 import { IsString, Length, Matches, IsEmail } from 'class-validator';
-import { cfgRaw } from '@modules/staff/staff.config';
+import { cfgRaw } from '../../staff/staff.config';
 
 export class LoginRequestDto {
   @IsString()

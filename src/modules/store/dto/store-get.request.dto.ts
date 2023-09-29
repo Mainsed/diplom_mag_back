@@ -6,7 +6,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { EnumSort } from '@shared/enums/sort.enum';
+import { EnumSort } from '../../../shared/enums/sort.enum';
 
 export class GetStoreRequest {
   @IsNumber()

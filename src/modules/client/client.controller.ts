@@ -7,12 +7,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ClientService } from '@modules/client/client.service';
-import { ClientCreateRequestDto } from '@modules/client/dto/client-create.request.dto';
-import { UserEmail } from '@shared/decorators/user-email.decorator';
-import { GetClientRequest } from '@modules/client/dto/client-get.request.dto';
-import { IClientSchema } from '@modules/mongodb/schemas/client.schema';
-import { ClientUpdateRequestDto } from '@modules/client/dto/client-update.request.dto';
+import { ClientService } from '../client/client.service';
+import { ClientCreateRequestDto } from '../client/dto/client-create.request.dto';
+import { UserEmail } from '../../shared/decorators/user-email.decorator';
+import { GetClientRequest } from '../client/dto/client-get.request.dto';
+import { IClientSchema } from '../mongodb/schemas/client.schema';
+import { ClientUpdateRequestDto } from '../client/dto/client-update.request.dto';
 
 /**
  * Controler to execute clientorization

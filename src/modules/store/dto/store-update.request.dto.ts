@@ -6,7 +6,7 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { cfgRaw } from '@modules/store/store.config';
+import { cfgRaw } from '../../store/store.config';
 
 export class StoreUpdateRequestDto {
   @IsNumber()

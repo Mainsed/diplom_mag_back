@@ -75,14 +75,6 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@modules(.*)$": "<rootDir>/modules/$1",
-      "^@shared(.*)$": "<rootDir>/shared/$1"
-    }
-  },
-  "_moduleAliases": {
-    "@modules": "dist/modules",
-    "@shared": "dist/shared"
+    "testEnvironment": "node"
   }
 }

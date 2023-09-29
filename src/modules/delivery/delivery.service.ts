@@ -10,18 +10,18 @@ import { Model } from 'mongoose';
 import {
   DELIVERY_MODEL_SCHEMA,
   IDeliverySchema,
-} from '@modules/mongodb/schemas/delivery.schema';
-import { DeliveryCreateRequestDto } from '@modules/delivery/dto/delivery-create.request.dto';
-import { GetDeliveryRequest } from '@modules/delivery/dto/delivery-get.request.dto';
-import { GetDeliveryResponse } from '@modules/delivery/dto/delivery-get.response.dto';
-import { DeliveryUpdateRequestDto } from '@modules/delivery/dto/delivery-update.request.dto';
-import { EnumSort } from '@shared/enums/sort.enum';
+} from '../mongodb/schemas/delivery.schema';
+import { DeliveryCreateRequestDto } from '../delivery/dto/delivery-create.request.dto';
+import { GetDeliveryRequest } from '../delivery/dto/delivery-get.request.dto';
+import { GetDeliveryResponse } from '../delivery/dto/delivery-get.response.dto';
+import { DeliveryUpdateRequestDto } from '../delivery/dto/delivery-update.request.dto';
+import { EnumSort } from '../../shared/enums/sort.enum';
 import {
   IWarehouseSchema,
   WAREHOUSE_MODEL_SCHEMA,
-} from '@modules/mongodb/schemas/warehouse.schema';
-import { StoreService } from '@modules/store/store.service';
-import { ClothService } from '@modules/cloth/cloth.service';
+} from '../mongodb/schemas/warehouse.schema';
+import { StoreService } from '../store/store.service';
+import { ClothService } from '../cloth/cloth.service';
 
 /**
  * Service that provides delivery management

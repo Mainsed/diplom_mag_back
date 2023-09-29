@@ -1,4 +1,4 @@
-import { IClientSchema } from '@modules/mongodb/schemas/client.schema';
+import { IClientSchema } from '../../mongodb/schemas/client.schema';
 
 export class GetClientResponse {
   client: IClientSchema[];

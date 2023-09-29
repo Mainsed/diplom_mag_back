@@ -1,4 +1,4 @@
-import { IClothSchema } from '@modules/mongodb/schemas/cloth.schema';
+import { IClothSchema } from '../../mongodb/schemas/cloth.schema';
 
 export class GetClothResponse {
   cloth: IClothSchema[];

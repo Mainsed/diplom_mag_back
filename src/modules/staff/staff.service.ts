@@ -10,12 +10,12 @@ import { Model } from 'mongoose';
 import {
   STAFF_MODEL_SCHEMA,
   IStaffSchema,
-} from '@modules/mongodb/schemas/staff.schema';
-import { StaffCreateRequestDto } from '@modules/staff/dto/staff-create.request.dto';
-import { GetStaffRequest } from '@modules/staff/dto/staff-get.request.dto';
-import { GetStaffResponse } from '@modules/staff/dto/staff-get.response.dto';
-import { StaffUpdateRequestDto } from '@modules/staff/dto/staff-update.request.dto';
-import { EnumSort } from '@shared/enums/sort.enum';
+} from '../mongodb/schemas/staff.schema';
+import { StaffCreateRequestDto } from '../staff/dto/staff-create.request.dto';
+import { GetStaffRequest } from '../staff/dto/staff-get.request.dto';
+import { GetStaffResponse } from '../staff/dto/staff-get.response.dto';
+import { StaffUpdateRequestDto } from '../staff/dto/staff-update.request.dto';
+import { EnumSort } from '../../shared/enums/sort.enum';
 
 /**
  * Service that provides staff management

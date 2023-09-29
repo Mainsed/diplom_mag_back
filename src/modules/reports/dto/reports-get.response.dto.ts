@@ -1,4 +1,4 @@
-import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
+import { ClothSizes } from '../../../shared/enums/cloth-sizes.enum';
 
 export class StoreBySales {
   storeId: number;

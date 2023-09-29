@@ -7,12 +7,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { StoreService } from '@modules/store/store.service';
-import { StoreCreateRequestDto } from '@modules/store/dto/store-create.request.dto';
-import { UserEmail } from '@shared/decorators/user-email.decorator';
-import { GetStoreRequest } from '@modules/store/dto/store-get.request.dto';
-import { IStoreSchema } from '@modules/mongodb/schemas/store.schema';
-import { StoreUpdateRequestDto } from '@modules/store/dto/store-update.request.dto';
+import { StoreService } from '../store/store.service';
+import { StoreCreateRequestDto } from '../store/dto/store-create.request.dto';
+import { UserEmail } from '../../shared/decorators/user-email.decorator';
+import { GetStoreRequest } from '../store/dto/store-get.request.dto';
+import { IStoreSchema } from '../mongodb/schemas/store.schema';
+import { StoreUpdateRequestDto } from '../store/dto/store-update.request.dto';
 
 /**
  * Controler to execute storeorization

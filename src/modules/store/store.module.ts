@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Connection } from 'mongoose';
-import { config } from '@modules/store/store.config';
-import { StoreController } from '@modules/store/store.controller';
-import { StoreService } from '@modules/store/store.service';
-import { MONGODB_CONNECTION } from '@modules/mongodb/mongodb.constants';
+import { config } from '../store/store.config';
+import { StoreController } from '../store/store.controller';
+import { StoreService } from '../store/store.service';
+import { MONGODB_CONNECTION } from '../mongodb/mongodb.constants';
 import {
   STORE_MODEL_SCHEMA,
   StoreSchema,
-} from '@modules/mongodb/schemas/store.schema';
+} from '../mongodb/schemas/store.schema';
 
 @Module({
   imports: [ConfigModule.forFeature(config)],

@@ -8,12 +8,12 @@ import {
   Delete,
   Param,
 } from '@nestjs/common';
-import { ClothService } from '@modules/cloth/cloth.service';
-import { ClothCreateRequestDto } from '@modules/cloth/dto/cloth-create.request.dto';
-import { UserEmail } from '@shared/decorators/user-email.decorator';
-import { GetClothRequest } from '@modules/cloth/dto/cloth-get.request.dto';
-import { IClothSchema } from '@modules/mongodb/schemas/cloth.schema';
-import { ClothUpdateRequestDto } from '@modules/cloth/dto/cloth-update.request.dto';
+import { ClothService } from '../cloth/cloth.service';
+import { ClothCreateRequestDto } from '../cloth/dto/cloth-create.request.dto';
+import { UserEmail } from '../../shared/decorators/user-email.decorator';
+import { GetClothRequest } from '../cloth/dto/cloth-get.request.dto';
+import { IClothSchema } from '../mongodb/schemas/cloth.schema';
+import { ClothUpdateRequestDto } from '../cloth/dto/cloth-update.request.dto';
 
 /**
  * Controler to execute clothorization

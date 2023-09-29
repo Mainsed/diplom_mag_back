@@ -7,12 +7,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { StaffService } from '@modules/staff/staff.service';
-import { StaffCreateRequestDto } from '@modules/staff/dto/staff-create.request.dto';
-import { UserEmail } from '@shared/decorators/user-email.decorator';
-import { GetStaffRequest } from '@modules/staff/dto/staff-get.request.dto';
-import { IStaffSchema } from '@modules/mongodb/schemas/staff.schema';
-import { StaffUpdateRequestDto } from '@modules/staff/dto/staff-update.request.dto';
+import { StaffService } from '../staff/staff.service';
+import { StaffCreateRequestDto } from '../staff/dto/staff-create.request.dto';
+import { UserEmail } from '../../shared/decorators/user-email.decorator';
+import { GetStaffRequest } from '../staff/dto/staff-get.request.dto';
+import { IStaffSchema } from '../mongodb/schemas/staff.schema';
+import { StaffUpdateRequestDto } from '../staff/dto/staff-update.request.dto';
 
 /**
  * Controler to execute stafforization

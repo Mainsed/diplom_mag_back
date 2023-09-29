@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
-import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
-import { DeliveryType } from '@shared/enums/delivery-type.enum';
+import { ClothSizes } from '../../../shared/enums/cloth-sizes.enum';
+import { DeliveryType } from '../../../shared/enums/delivery-type.enum';
 
 export const DELIVERY_MODEL_SCHEMA = Symbol('DELIVERY_MODEL_SCHEMA');
 

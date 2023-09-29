@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Connection } from 'mongoose';
-import { config } from '@modules/staff/staff.config';
-import { StaffController } from '@modules/staff/staff.controller';
-import { StaffService } from '@modules/staff/staff.service';
-import { MONGODB_CONNECTION } from '@modules/mongodb/mongodb.constants';
+import { config } from '../staff/staff.config';
+import { StaffController } from '../staff/staff.controller';
+import { StaffService } from '../staff/staff.service';
+import { MONGODB_CONNECTION } from '../mongodb/mongodb.constants';
 import {
   STAFF_MODEL_SCHEMA,
   StaffSchema,
-} from '@modules/mongodb/schemas/staff.schema';
+} from '../mongodb/schemas/staff.schema';
 
 @Module({
   imports: [ConfigModule.forFeature(config)],

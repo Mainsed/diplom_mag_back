@@ -7,15 +7,15 @@ import {
   BadGatewayException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { ClientCreateRequestDto } from '@modules/client/dto/client-create.request.dto';
-import { GetClientRequest } from '@modules/client/dto/client-get.request.dto';
-import { GetClientResponse } from '@modules/client/dto/client-get.response.dto';
-import { ClientUpdateRequestDto } from '@modules/client/dto/client-update.request.dto';
+import { ClientCreateRequestDto } from '../client/dto/client-create.request.dto';
+import { GetClientRequest } from '../client/dto/client-get.request.dto';
+import { GetClientResponse } from '../client/dto/client-get.response.dto';
+import { ClientUpdateRequestDto } from '../client/dto/client-update.request.dto';
 import {
   CLIENT_MODEL_SCHEMA,
   IClientSchema,
-} from '@modules/mongodb/schemas/client.schema';
-import { EnumSort } from '@shared/enums/sort.enum';
+} from '../mongodb/schemas/client.schema';
+import { EnumSort } from '../../shared/enums/sort.enum';
 
 /**
  * Service that provides client management

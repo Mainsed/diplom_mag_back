@@ -10,9 +10,9 @@ import {
 import {
   IClothDelivered,
   IDeliverySizeCount,
-} from '@modules/mongodb/schemas/delivery.schema';
-import { ClothSizes } from '@shared/enums/cloth-sizes.enum';
-import { DeliveryType } from '@shared/enums/delivery-type.enum';
+} from '../../mongodb/schemas/delivery.schema';
+import { ClothSizes } from '../../../shared/enums/cloth-sizes.enum';
+import { DeliveryType } from '../../../shared/enums/delivery-type.enum';
 
 export class DeliverySizeCount implements IDeliverySizeCount {
   @IsEnum(ClothSizes)

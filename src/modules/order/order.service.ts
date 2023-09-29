@@ -10,25 +10,25 @@ import { Model } from 'mongoose';
 import {
   ClothId,
   OrderCreateRequestDto,
-} from '@modules/order/dto/order-create.request.dto';
-import { GetOrderRequest } from '@modules/order/dto/order-get.request.dto';
-import { GetOrderResponse } from '@modules/order/dto/order-get.response.dto';
-import { OrderUpdateRequestDto } from '@modules/order/dto/order-update.request.dto';
+} from '../order/dto/order-create.request.dto';
+import { GetOrderRequest } from '../order/dto/order-get.request.dto';
+import { GetOrderResponse } from '../order/dto/order-get.response.dto';
+import { OrderUpdateRequestDto } from '../order/dto/order-update.request.dto';
 import {
   ORDER_MODEL_SCHEMA,
   IOrderSchema,
   IClothId,
-} from '@modules/mongodb/schemas/order.schema';
-import { EnumSort } from '@shared/enums/sort.enum';
+} from '../mongodb/schemas/order.schema';
+import { EnumSort } from '../../shared/enums/sort.enum';
 import {
   CLOTH_MODEL_SCHEMA,
   IClothSchema,
-} from '@modules/mongodb/schemas/cloth.schema';
+} from '../mongodb/schemas/cloth.schema';
 import {
   IWarehouseSchema,
   WAREHOUSE_MODEL_SCHEMA,
-} from '@modules/mongodb/schemas/warehouse.schema';
-import { OrderStatuses } from '@shared/enums/order-statuses.enum';
+} from '../mongodb/schemas/warehouse.schema';
+import { OrderStatuses } from '../../shared/enums/order-statuses.enum';
 
 /**
  * Service that provides order management

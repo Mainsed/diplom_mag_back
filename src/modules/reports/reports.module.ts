@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { Connection } from 'mongoose';
-import { ReportController } from '@modules/reports/reports.controller';
-import { ReportService } from '@modules/reports/reports.service';
-import { MONGODB_CONNECTION } from '@modules/mongodb/mongodb.constants';
+import { ReportController } from '../reports/reports.controller';
+import { ReportService } from '../reports/reports.service';
+import { MONGODB_CONNECTION } from '../mongodb/mongodb.constants';
 import {
   ORDER_MODEL_SCHEMA,
   OrderSchema,
-} from '@modules/mongodb/schemas/order.schema';
+} from '../mongodb/schemas/order.schema';
 import {
   STAFF_MODEL_SCHEMA,
   StaffSchema,
-} from '@modules/mongodb/schemas/staff.schema';
+} from '../mongodb/schemas/staff.schema';
 
 @Module({
   controllers: [ReportController],
