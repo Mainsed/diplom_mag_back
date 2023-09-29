@@ -6,7 +6,7 @@ import {
   STAFF_MODEL_SCHEMA,
   IStaffSchema,
 } from '../mongodb/schemas/staff.schema';
-import * as md5 from 'md5';
+import md5 from 'md5';
 import { LoginResponsetDto } from '../auth/dto/login.response.dto';
 import { JwtService } from '@nestjs/jwt';
 
