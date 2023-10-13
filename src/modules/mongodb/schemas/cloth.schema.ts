@@ -23,7 +23,7 @@ export const ClothSchema = new mongoose.Schema<IClothSchema>(
     name: { type: String, required: true },
     price: { type: Number, required: true },
     desc: { type: String, required: true },
-    availableSizes: { type: [String], required: false },
+    availableSizes: { type: [String], required: true },
     createdBy: { type: String, required: true },
     createdAt: { type: String, required: true },
     updatedBy: { type: String, required: false },

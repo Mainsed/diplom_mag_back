@@ -166,7 +166,7 @@ export class OrderService {
         deletedBy: null,
       });
       if (!existingOrder) {
-        throw new NotFoundException(`Не знайдено магазин з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено магазин з ID ${id}`);
       }
 
       let clothIdList: IClothId[];
@@ -309,7 +309,7 @@ export class OrderService {
         deletedBy: null,
       });
       if (!existingOrder) {
-        throw new NotFoundException(`Не знайдено магазин з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено магазин з ID ${id}`);
       }
 
       const updateResult = await existingOrder.updateOne({

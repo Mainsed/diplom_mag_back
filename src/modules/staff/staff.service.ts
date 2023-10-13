@@ -122,7 +122,7 @@ export class StaffService {
         deletedBy: null,
       });
       if (!existingStaff) {
-        throw new NotFoundException(`Не знайдено користувача з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено користувача з ID ${id}`);
       }
 
       const updateResult = await existingStaff.updateOne({
@@ -152,7 +152,7 @@ export class StaffService {
         deletedBy: null,
       });
       if (!existingStaff) {
-        throw new NotFoundException(`Не знайдено користувача з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено користувача з ID ${id}`);
       }
 
       const updateResult = await existingStaff.updateOne({

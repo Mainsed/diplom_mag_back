@@ -175,7 +175,7 @@ export class ClothService {
         deletedBy: null,
       });
       if (!existingCloth) {
-        throw new NotFoundException(`Не знайдено одяг з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено одяг з ID ${id}`);
       }
 
       const updateResult = await existingCloth.updateOne({
@@ -205,7 +205,7 @@ export class ClothService {
         deletedBy: null,
       });
       if (!existingCloth) {
-        throw new NotFoundException(`Не знайдено одяг з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено одяг з ID ${id}`);
       }
 
       const updateResult = await existingCloth.updateOne({

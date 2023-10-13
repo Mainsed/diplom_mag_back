@@ -127,7 +127,7 @@ export class ClientService {
         deletedBy: null,
       });
       if (!existingClient) {
-        throw new NotFoundException(`Не знайдено клієнта з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено клієнта з ID ${id}`);
       }
 
       const updateResult = await existingClient.updateOne({
@@ -157,7 +157,7 @@ export class ClientService {
         deletedBy: null,
       });
       if (!existingClient) {
-        throw new NotFoundException(`Не знайдено клієнта з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено клієнта з ID ${id}`);
       }
 
       const updateResult = await existingClient.updateOne({

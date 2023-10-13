@@ -186,7 +186,7 @@ export class DeliveryService {
         deletedBy: null,
       });
       if (!existingDelivery) {
-        throw new NotFoundException(`Не знайдено поставку з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено поставку з ID ${id}`);
       }
 
       const updateResult = await existingDelivery.updateOne({
@@ -216,7 +216,7 @@ export class DeliveryService {
         deletedBy: null,
       });
       if (!existingDelivery) {
-        throw new NotFoundException(`Не знайдено поставку з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено поставку з ID ${id}`);
       }
 
       await Promise.all(

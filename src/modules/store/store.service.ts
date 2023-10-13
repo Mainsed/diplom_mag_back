@@ -114,7 +114,7 @@ export class StoreService {
         deletedBy: null,
       });
       if (!existingStore) {
-        throw new NotFoundException(`Не знайдено магазин з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено магазин з ID ${id}`);
       }
 
       const updateResult = await existingStore.updateOne({
@@ -144,7 +144,7 @@ export class StoreService {
         deletedBy: null,
       });
       if (!existingStore) {
-        throw new NotFoundException(`Не знайдено магазин з ID ${id}}`);
+        throw new NotFoundException(`Не знайдено магазин з ID ${id}`);
       }
 
       const updateResult = await existingStore.updateOne({
