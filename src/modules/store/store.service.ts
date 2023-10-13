@@ -36,7 +36,7 @@ export class StoreService {
   ): Promise<IStoreSchema> {
     try {
       const existingStore = await this.storeSchema.findOne({
-        email: dto.address,
+        address: dto.address,
       });
 
       if (existingStore) {
